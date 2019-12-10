@@ -53,10 +53,11 @@ class DianpingComment:
         print('首页源码',html)
         # css_link = re.search(r'<link re.*?css.*?href="(.*?svgtextcss.*?)">', html)
         css_link = re.findall(r'<link rel="stylesheet" type="text/css" href="//s3plus.meituan.net/v1/(.*?)">', html)
-        assert css_link
-        css_link = 'http://s3plus.meituan.net/v1/' + css_link[0]
-        print('css链接',css_link)
-        return css_link
+        if css_link:
+            css_link = 'http://s3plus.meituan.net/v1/' + css_link[0]
+            # print(css_link)
+            # print('css链接',css_link)
+            return css_link
 
 
 
@@ -191,6 +192,6 @@ class DianpingComment:
 
 
 if __name__ == "__main__":
-    COOKIES = '换上你自己的cookie_lxsdk_cuid=1699b152d90c8-04b0e0-1699b152d91c8; _lxsdk=1699b481697-541f3415-1fa400-152d91c8; _hc.v=992d8c67-a9b0-ee61-c6cf-ed9b42cfe11f.1553085051; ctu=cc29f77c02b4556c6a1db1c67c5c10e084f7f63d00208c59788c11a4845348aa; ua=aJay13; aburl=1; s_ViewType=10; Hm_lvt_e6f449471d3527d58c46e24efb4c343e=1557817381; Hm_lvt_dbeeb675516927da776beeb1d9802bd4=1559535631; cy=10; cye=tianjin; uamo=15993248973; dper=af0e70c61c6f98289269ed0f03b97c48a420a5b5ea2e1e33a40ee88662a6acd6a28707ba4a125f2cf0cb043e4d8dc66939c01b24752bfe3aeb807f53c3b411b50117cf5195d1fe2e7db9d1074b85ca4cd0720e1d8f71fc229d3eb6eb5d9df07b; ll=7fd06e815b796be3df069dec7836c3df; _lxsdk_s=16b6c84fcbc-234-e0d-4d4%7C%7C417'
-    dp = DianpingComment('412xx21', cookies=COOKIES)
+    COOKIES = 'cookie_lxsdk_cuid=1699b152d90c8-04b0e0-1699b152d91c8; _lxsdk=1699b481697-541f3415-1fa400-152d91c8; _hc.v=992d8c67-a9b0-ee61-c6cf-ed9b42cfe11f.1553085051; ctu=cc29f77c02b4556c6a1db1c67c5c10e084f7f63d00208c59788c11a4845348aa; ua=aJay13; aburl=1; s_ViewType=10; Hm_lvt_e6f449471d3527d58c46e24efb4c343e=1557817381; Hm_lvt_dbeeb675516927da776beeb1d9802bd4=1559535631; cy=10; cye=tianjin; uamo=15993248973; dper=af0e70c61c6f98289269ed0f03b97c48a420a5b5ea2e1e33a40ee88662a6acd6a28707ba4a125f2cf0cb043e4d8dc66939c01b24752bfe3aeb807f53c3b411b50117cf5195d1fe2e7db9d1074b85ca4cd0720e1d8f71fc229d3eb6eb5d9df07b; ll=7fd06e815b796be3df069dec7836c3df; _lxsdk_s=16b6c84fcbc-234-e0d-4d4%7C%7C417'
+    dp = DianpingComment('17182037', cookies=COOKIES)
     dp.run()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from cnblog.items import CnblogItem
+from ..items import CnblogItem
 
 
 class CnblogSpiderSpider(scrapy.Spider):
