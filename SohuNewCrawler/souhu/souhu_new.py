@@ -6,8 +6,8 @@ __mtime__ = '2019/5/9 0009'
 
 """
 from urllib.parse import urlparse
-from souhu.config import size, type_name, new_url_list
-from db import MongoArticle, MongoUrl
+from .config import size, type_name, new_url_list
+from ..db import MongoArticle, MongoUrl
 import requests
 import time
 import datetime
@@ -29,12 +29,14 @@ class SouhuSpider():
         url_list = self.dburl.select({"type": type_name})
         for url in url_list:
             self.url_set.add(url.get('url'))
+
     def strf_time(self,timeStamp):
         if timeStamp is None:
             return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         localTime = time.localtime(int(timeStamp)/1000)
         strTime = time.strftime("%Y-%m-%d %H:%M:%S", localTime)
         return strTime
+
     def req_json(self):
         while True:
             start_url = self.url_queue.get()

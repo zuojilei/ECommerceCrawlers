@@ -15,7 +15,7 @@ import tkinter as tk
 import os
 
 
-from db import MongoArticle,MongoUrl,MongoConfig
+from .db import MongoArticle,MongoUrl,MongoConfig
 from multiprocessing import Process, JoinableQueue
 
 from tkinter import *
@@ -50,7 +50,7 @@ class MainPage(object):
 
 
     def asyCraler(self):
-        from run_main import NewsClawer
+        from .run_main import NewsClawer
         nc = NewsClawer()
         nc.init_set()
         t = threading.Thread(target=nc.run, args=())
@@ -66,7 +66,7 @@ class MainPage(object):
 
 
     def _temp_t(self):
-        from  souhu.souhu_new import SouhuSpider
+        from  SohuNewCrawler.souhu.souhu_new import SouhuSpider
         ss = SouhuSpider()
         self.startBtn.config(text='正在采集')
         while True:
@@ -172,7 +172,7 @@ class MainPage(object):
 
     # 检测路径
     def check_path(self):
-        from  export_article import EexportTxt
+        from  .export_article import EexportTxt
         et = EexportTxt()
         path = self.pathEntry.get()
         checkout = et.check_input_path(path)
@@ -185,7 +185,7 @@ class MainPage(object):
 
     # 导出数据
     def export_data(self):
-        from  export_article import EexportTxt
+        from  .export_article import EexportTxt
         et = EexportTxt()
         path = self.pathEntry.get()
         et.run(input_path=path,errMessage=self.errMessage)

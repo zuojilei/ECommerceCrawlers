@@ -6,7 +6,7 @@ from selenium import webdriver
 base_url = 'https://www.toutiao.com/api/search/content/'
 timestamp = int(time.time()*1000)
 article_url_list = []
-browser = webdriver.Chrome()
+browser = webdriver.Chrome(executable_path="D:\\soft\\chromedriver")
 
 
 # 获取到一个页面内所有的article url
@@ -81,7 +81,7 @@ def request_AND_storage():
                     with open('result_url_txt', 'a', encoding='utf-8') as f:
                         f.write(video_url+'\n')
         except:
-            print('此文章url无妨访问' ,browser.current_url)
+            print('此文章url无法访问' ,browser.current_url)
     browser.close()
 
 

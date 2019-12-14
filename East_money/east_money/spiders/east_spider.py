@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from lxml import etree
-from east_money.items import EastMoneyItem
+from ..items import EastMoneyItem
 import requests
 
 

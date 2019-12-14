@@ -11,29 +11,29 @@ from selenium import webdriver
 from urllib.parse import urlencode
 from snownlp import SnowNLP
 
-
 # 设置词云路径
 WC_FONT_PATH = r'C:\Windows\Fonts\simfang.ttf'
 
 session = requests.Session()
-proxies={
-        "http": "http://218.95.37.252:3128",
-        "http": "http://60.205.159.195:3128",
-        }
-headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
-               "Referer":'https://accounts.douban.com/passport/login'
-           }
+proxies = {
+    "http1": "http://218.95.37.252:3128",
+    "http": "http://60.205.159.195:3128",
+}
+headers = {
+    "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3941.4 Safari/537.36',
+    "Referer": 'https://accounts.douban.com/passport/login'
+    }
 
 
 def login():
     url = "https://accounts.douban.com/j/mobile/login/basic"
     data = {
-        'name':'豆瓣账号',
-        'password':'密码',
-        'remember':'false'
+        'name': 'luoshen',
+        'password': '199606184810zuo',
+        'remember': 'false'
     }
     # 设置代理，从西刺免费代理网站上找出一个可用的代理IP
-    user = session.post(url=url, headers=headers, data=data, proxies=proxies)
+    user = session.post(url=url, headers=headers, data=data)
     print(user.text)
 
 
@@ -43,12 +43,12 @@ def spider_lianjie(lianjie):
     f.seek(0)
     f.truncate()
     while True:
-        comment_url = lianjie[:42]+'comments'
+        comment_url = lianjie[:42] + 'comments'
         params = {
-            'start':page*20,
-            'limit':20,
-            'sort':'new_score',
-            'status':'P'
+            'start': page * 20,
+            'limit': 20,
+            'sort': 'new_score',
+            'status': 'P'
         }
         html = session.get(url=comment_url, params=params, proxies=proxies)
         page += 1
@@ -66,7 +66,7 @@ def spider_lianjie(lianjie):
             time.sleep(int(random.choice([0.5, 0.2, 0.3])))
         else:
             f.close()
-            print("大约共{0}页评论".format(page-1))
+            print("大约共{0}页评论".format(page - 1))
             break
 
 
@@ -76,12 +76,12 @@ def spider_id(id):
     f.seek(0)
     f.truncate()
     while True:
-        move_url = 'https://movie.douban.com/subject/'+id+'/comments?'
+        move_url = 'https://movie.douban.com/subject/' + id + '/comments?'
         params = {
-            'start':page*20,
-            'limit':20,
-            'sort':'new_score',
-            'status':'P'
+            'start': page * 20,
+            'limit': 20,
+            'sort': 'new_score',
+            'status': 'P'
         }
         html = session.get(url=move_url, params=params, proxies=proxies)
         print(html.url)
@@ -100,25 +100,26 @@ def spider_id(id):
             time.sleep(int(random.choice([0.5, 0.2, 0.3])))
         else:
             f.close()
-            print("大约共{0}页评论".format(page-1))
+            print("大约共{0}页评论".format(page - 1))
             break
 
 
 def spider_name(name):
-    params = urlencode({'search_text':name})
+    params = urlencode({'search_text': name})
     move_url = 'https://movie.douban.com/subject_search'
-    html = requests.get(url=move_url,headers = headers, params=params,proxies=proxies)
+    html = requests.get(url=move_url, headers=headers, params=params, proxies=proxies)
     # 利用selenium模拟浏览器，找到电影的url
-    drive = webdriver.Chrome()
+    drive = webdriver.Chrome(executable_path="D:\\soft\\chromedriver")
     drive.get(html.url)
-    first_result = drive.find_element_by_xpath('//*[@id="root"]/div/div[2]/div[1]/div[1]/div[1]/div/div/div[1]/a').get_attribute('href')
+    first_result = drive.find_element_by_xpath(
+        '//*[@id="root"]/div/div[2]/div[1]/div[1]/div[1]/div/div/div[1]/a').get_attribute('href')
     page = 0
     # 每次写入前清空文件
     f = open('result.txt', 'a+', encoding=html.encoding)
     f.seek(0)
     f.truncate()
     while True:
-        move_url = first_result+ '/comments?'
+        move_url = first_result + 'comments?'
         params = {
             'start': page * 20,
             'limit': 20,
@@ -129,6 +130,7 @@ def spider_name(name):
         page += 1
         print("开始爬取第{0}页***********************************************************************：".format(page))
         print(html.url)
+        print(html.content)
         xpath_tree = etree.HTML(html.text)
         comment_divs = xpath_tree.xpath('//*[@id="comments"]/div')
         if len(comment_divs) > 2:
@@ -137,7 +139,7 @@ def spider_name(name):
                 comment = comment_div.xpath('./div[2]/p/span/text()')
                 if len(comment) > 0:
                     print(comment[0])
-                    f.write(comment[0]+'\n')
+                    f.write(comment[0] + '\n')
             time.sleep(int(random.choice([0.5, 0.2, 0.3])))
         else:
             f.close()
@@ -147,7 +149,6 @@ def spider_name(name):
 
 # 定义搜索类型
 def spider_kind():
-
     kind = int(input("请选择搜索类型：1.根据电影链接 2.根据电影id 3.根据电影名："))
     if kind == 1:
         lianjie = input("请输入电影链接:")
@@ -168,7 +169,7 @@ def cut_word():
         comment_txt = file.read()
         # 使用jieba进行分割
         wordlist = jieba.cut(comment_txt)
-        print('***********',wordlist)
+        print('***********', wordlist)
         wl = "/".join(wordlist)
         # print(wl)
         return wl
@@ -211,7 +212,7 @@ def data_show():
 
 
 if __name__ == '__main__':
-    login()
-    spider_kind()
+    # login()
+    # spider_kind()
     create_word_cloud()
     data_show()

@@ -10,9 +10,9 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 from lxml import etree
 
-from app import create_app
-from exts import db
-from models import Poem, Poet
+from .app import create_app
+from .exts import db
+from .models import Poem, Poet
 
 user_agent = Faker('zh-CN').user_agent()
 

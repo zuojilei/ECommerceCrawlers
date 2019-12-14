@@ -7,7 +7,7 @@ __mtime__ = '2019/5/9 0009'
 """
 
 
-from db import MongoArticle,MongoUrl
+from .db import MongoArticle,MongoUrl
 mu = MongoUrl()
 ma = MongoArticle()
 

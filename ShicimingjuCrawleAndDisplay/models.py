@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 __author__ = 'Joynice'
 
-from exts import db
+from .exts import db
 
 #诗人表
 class Poet(db.Model):

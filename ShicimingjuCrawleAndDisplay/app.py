@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request
-from pyecharts import Page, Bar
-
+# from pyecharts import Page, Bar
+from pyecharts.charts.basic_charts.bar import Bar
+from pyecharts.charts.composite_charts.page import Page
 import config
-from exts import db
-from models import Poet, Poem
+from .exts import db
+from .models import Poet, Poem
 
 
 def create_app():

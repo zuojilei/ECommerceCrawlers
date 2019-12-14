@@ -109,7 +109,7 @@ class ZZSpider():
         self.logMessage.put('数据采集结束')
         startBtn.config(state=tk.NORMAL, text='开始采集', bg='#F5F5F5', )
         stopBtn.config(state=tk.DISABLED, text='暂停采集', bg='#F5F5F5', )
-        from export_title import EexportTxt
+        from .export_title import EexportTxt
         et = EexportTxt()
         et.check_input_path(path)  # 检测输入的路径是否正确
         et.run(input_path=path, errMessage=logMessage, title_set=self.title_set)

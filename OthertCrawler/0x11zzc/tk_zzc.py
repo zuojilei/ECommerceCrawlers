@@ -206,7 +206,7 @@ class MainPage(object):
         self.flag_queue.put(1)
         self.startBtn.config(state=tk.DISABLED,text='正在采集',bg='coral',)
         self.stopBtn.config(state=tk.NORMAL,text='暂停采集',bg='#F5F5F5',)
-        from zz_spider import ZZSpider
+        from .zz_spider import ZZSpider
         zzs = ZZSpider()
         t = threading.Thread(target=zzs.run, args=(config,self.url_queue,self.flag_queue,self.logMessage,self.startBtn,self.stopBtn,tk))# config,url_queue,flag_queue,logMessage
         t.start()
