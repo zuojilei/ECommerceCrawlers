@@ -1,4 +1,4 @@
-from model import WeiboInfo, WeiboTask, engine
+from .model import WeiboInfo, WeiboTask, engine
 from sqlalchemy.orm import sessionmaker
 
 from pyquery import PyQuery as pq

@@ -2,7 +2,7 @@ from fake_useragent import UserAgent
 import requests
 from time import sleep
 import datetime
-from model import WeiboInfo, WeiboTask, engine
+from .model import WeiboInfo, WeiboTask, engine
 from sqlalchemy.orm import sessionmaker
 
 from pyquery import PyQuery as pq

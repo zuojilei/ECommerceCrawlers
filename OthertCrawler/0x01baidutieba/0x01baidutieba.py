@@ -71,7 +71,8 @@ class TiebaSpider():
             # 3. 从响应中提取数据
             items = self.get_items(content, url_list.index(url) + 1)
             # 4. 保存数据
-            self.save_items(items)
+            print(items)
+            # self.save_items(items)
 
         pass
 

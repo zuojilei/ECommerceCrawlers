@@ -353,8 +353,10 @@ class Developer():
 
 # 版本测试时间
 def test_time(over_time):
+    print(over_time)
     from datetime import datetime
     d2 = datetime.strptime(over_time, '%Y-%m-%d %H:%M:%S')
+    print(d2)
     now = datetime.now()
     if d2 > now:
         return True
@@ -377,7 +379,7 @@ if __name__ == '__main__':
     print('开始')
     window.title("网站泛域名解析定制版v0.1-ByAjay13")  # 父容器标题
     basePath = os.path.abspath(os.path.dirname(__file__))
-    if test_time('2020-5-11 16:00:00'):  # 测试授权日期
+    if test_time('2019-12-14 19:00:00'):  # 测试授权日期
 
         create_config_ini() # 配置文件
         create_title_dir() #配置默认路径

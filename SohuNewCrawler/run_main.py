@@ -9,9 +9,9 @@ __mtime__ = '2019/5/9 0009'
 import re
 import time
 import threading
-from .souhu.parse_html import parse_souhu_news
+from SohuNewCrawler.souhu.parse_html import parse_souhu_news
 import requests
-from .db import MongoUrl, MongoArticle
+from SohuNewCrawler.db import MongoUrl, MongoArticle
 
 
 class NewsClawer():
