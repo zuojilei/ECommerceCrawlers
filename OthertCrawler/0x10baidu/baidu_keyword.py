@@ -90,7 +90,7 @@ if __name__ == '__main__':
     print("开始进行爬虫设置！！！")
     try:
         thread_num = int(input("请设置线程数（默认线程为20，建议使用20，防止百度封堵）：") or 20)
-        judeg_num = int(input("请设置阈值对收录次数进行划分，默认值为1000：") or 1000)
+        judeg_num = int(input("请设置阈值对收录次数进行划分，默认值 为1000：") or 1000)
     except:
         print("请输入大于0的整数！！！")
         sys.exit(0)

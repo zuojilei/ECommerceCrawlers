@@ -39,7 +39,8 @@ class Fofa():
     def _init_browser(self):
 
         # 初始化浏览器
-        self.browser = webdriver.Chrome(service_args=['--load-images=false', '--disk-cache=true'])
+        self.browser = webdriver.Chrome(service_args=['--load-images=false', '--disk-cache=true'],
+                                        executable_path="D:\\soft\\chromedriver")
 
         self.wait = WebDriverWait(self.browser, 10)
         self.browser.set_window_size(1400, 900)
@@ -93,7 +94,7 @@ class Fofa():
                 'type': '博彩'
             }
             print(product)
-            self.save_to_mongo(product)
+            # self.save_to_mongo(product)
             
 #             # 保存格式为https:http ip port 任意组合形式 可以任意修改 现阶段为 http://domain:80 https://domain:443  domain:3389
 #             url=  item.find('.list_mod_t').text()
