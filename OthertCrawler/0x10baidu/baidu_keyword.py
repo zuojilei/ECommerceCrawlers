@@ -48,24 +48,25 @@ class BaiduKeyword(object):
             except Exception as e:
                 number = 0
                 row = {'keyword': keyword, 'number': number, 'time': str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))}
-            try:
-                if int(number) <= self.judge_number:
-                    with open(os.path.join(self.basepath, '{}小于{}.csv'.format(self.filename, self.judge_number)), 'a+',
-                              newline='') as f:
-                        f_csv = csv.DictWriter(f, self.csv_header)
-                        f_csv.writerow(row)
-                else:
-                    with open(os.path.join(self.basepath, '{}大于{}.csv'.format(self.filename, self.judge_number)), 'a+',
-                              newline='') as f:
-                        f_csv = csv.DictWriter(f, self.csv_header)
-                        f_csv.writerow(row)
-            except Exception as e:
-                with open('fail2.txt', 'a+') as f:
-                    f.write(keyword + '\n')
+                print(row)
+            # try:
+            #     if int(number) <= self.judge_number:
+            #         with open(os.path.join(self.basepath, '{}小于{}.csv'.format(self.filename, self.judge_number)), 'a+',
+            #                   newline='') as f:
+            #             f_csv = csv.DictWriter(f, self.csv_header)
+            #             f_csv.writerow(row)
+            #     else:
+            #         with open(os.path.join(self.basepath, '{}大于{}.csv'.format(self.filename, self.judge_number)), 'a+',
+            #                   newline='') as f:
+            #             f_csv = csv.DictWriter(f, self.csv_header)
+            #             f_csv.writerow(row)
+            # except Exception as e:
+            #     with open('fail2.txt', 'a+') as f:
+            #         f.write(keyword + '\n')
 
     def run(self, path):
         self.path = path
-        with open(path, 'r', encoding='gb18030') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             a = f.readlines()
             for i in a:
                 self.keyword_queue.put(i.strip())
