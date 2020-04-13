@@ -117,11 +117,11 @@ spider(sheet)
 
 # 创建文件夹
 try:
-    os.chdir('D:\\')
+    os.chdir('D:\\data\\')
     os.mkdir('Spider_test1')
-    os.chdir('D:\\Spider_test1')
+    os.chdir('D:\\data\\Spider_test1')
 except Exception as e:
-    os.chdir('D:\\Spider_test1')
+    os.chdir('D:\\data\\Spider_test1')
 
 # 保存为表格
 try:
