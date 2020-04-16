@@ -20,17 +20,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 
 class Fofa():
-    def __init__(self,config):
+    def __init__(self, config):
         self.WRITE_MODE = config[
             'write_mode']  # 结果信息保存类型，为list形式，可包含txt、csv、json、mongo和mysql五种类型
 
-        self.FOFA_USERNAME =config['fofa_username'] # fofa账号用户名
-        self.FOFA_PASSWORD = config['fofa_password'] # fofa账号密码
+        self.FOFA_USERNAME = config['fofa_username']  # fofa账号用户名
+        self.FOFA_PASSWORD = config['fofa_password']  # fofa账号密码
         self.PAGE = config['page']
 
         self.MONGO_URL = 'localhost'
         self.MONGO_DB = 'fofa'
         self.MONGO_TABLE = 'message'
+        self.q = None
+        self.now_page = None
 
         self._init_db()
         self._init_browser()
@@ -99,23 +101,23 @@ class Fofa():
             }
             print(product)
             # self.save_to_mongo(product)
-            
-#             # 保存格式为https:http ip port 任意组合形式 可以任意修改 现阶段为 http://domain:80 https://domain:443  domain:3389
-#             url=  item.find('.list_mod_t').text()
-#             url_list = url.split('\n')
-#             domain=url_list[0]
-#             port = url_list[1]
-#             if port=='80':
-#                 domain='http://'+domain
-#             result = domain+':'+port+'\n'
-#             self.save_text(result)
 
+    #             # 保存格式为https:http ip port 任意组合形式 可以任意修改 现阶段为 http://domain:80 https://domain:443  domain:3389
+    #             url=  item.find('.list_mod_t').text()
+    #             url_list = url.split('\n')
+    #             domain=url_list[0]
+    #             port = url_list[1]
+    #             if port=='80':
+    #                 domain='http://'+domain
+    #             result = domain+':'+port+'\n'
+    #             self.save_text(result)
 
-    def save_to_txt(self,result):
+    def save_to_txt(self, result):
         # 应安全人员要求保存txt形式
-        with open ('result.txt','a+')as f:
-            f.write(result+'\n')
+        with open('result.txt', 'a+')as f:
+            f.write(result + '\n')
         pass
+
     # 存储到mongodb
     def save_to_mongo(self, result):
         try:
@@ -140,7 +142,6 @@ class Fofa():
         self.browser.quit()
 
 
-
 import os
 import sys
 import json
@@ -159,10 +160,9 @@ def main():
             except ValueError:
                 sys.exit(u'config.json 格式不正确，请参考 ')
         fofa = Fofa(config)
-        fofa.start()  # 爬取fofa信息
+        fofa.main()  # 爬取fofa信息
     except Exception as e:
         print('Error: ', e)
-
 
 
 if __name__ == '__main__':
